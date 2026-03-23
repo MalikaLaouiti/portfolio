@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&display=swap');
+
+:root {
+  --bg:        #1e1e1e;
+  --bg2:       #252526;
+  --bg3:       #2d2d2d;
+  --bg4:       #37373d;
+  --border:    #3c3c3c;
+  --text:      #d4d4d4;
+  --accent:    #007acc;
+
+  --kw:        #569cd6;
+  --kw2:       #c586c0;
+  --type:      #4ec9b0;
+  --fn:        #dcdcaa;
+  --str:       #ce9178;
+  --num:       #b5cea8;
+  --cmt:       #6a9955;
+  --var:       #9cdcfe;
+  --prop:      #9cdcfe;
+  --bool:      #569cd6;
+  --link:      #4fc1ff;
+  --enum-val:  #4fc1ff;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  font-family: 'JetBrains Mono', monospace;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 13px;
+}
+
+/* ── scrollbars ── */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #424242; border-radius: 4px; }
+* { scrollbar-width: thin; scrollbar-color: #424242 transparent; }
+
+/* ── syntax tokens ── */
+.kw        { color: var(--kw); }
+.kw2       { color: var(--kw2); }
+.type-t    { color: var(--type); }
+.fn-t      { color: var(--fn); }
+.str-t     { color: var(--str); }
+.num-t     { color: var(--num); }
+.cmt-t     { color: var(--cmt); font-style: italic; }
+.var-t     { color: var(--var); }
+.prop-t    { color: var(--prop); }
+.bool-t    { color: var(--bool); }
+.link-t    { color: var(--link); text-decoration: underline; cursor: pointer; }
+.enum-t    { color: var(--enum-val); }
+.punc-t    { color: var(--text); }
+.op-t      { color: var(--text); }
+
+/* ── cursor blink ── */
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+.cursor {
+  display: inline-block;
+  width: 2px; height: 14px;
+  background: #aeafad;
+  animation: blink 1s step-end infinite;
+  vertical-align: text-bottom;
+  margin-left: 1px;
+}
+
+/* ── notification slide ── */
+@keyframes slideIn {
+  from { transform: translateX(20px); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+.notification-enter { animation: slideIn 0.3s ease forwards; }
+
+/* ── fade ── */
+@keyframes fadeIn { from { opacity:0 } to { opacity:1 } }
+.fade-in { animation: fadeIn 0.25s ease; }
+
+/* ── demos loadbar ── */
+@keyframes loadbar {
+  0%   { width: 0%;   margin-left: 0; }
+  50%  { width: 60%;  margin-left: 20%; }
+  100% { width: 0%;   margin-left: 100%; }
+}
