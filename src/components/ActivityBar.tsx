@@ -1,5 +1,6 @@
 "use client";
 import { FileKey } from "@/src/lib/files";
+import { useLanguage } from "@/src/contexts/LanguageContext";
 
 interface Props {
   explorerOpen: boolean;
@@ -45,15 +46,6 @@ const BTN_ICONS = [
     action: "demos",
   },
   {
-    label: "Documents",
-    svg: (
-      <svg viewBox="0 0 24 24" fill="currentColor" width={22} height={22}>
-        <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z" />
-      </svg>
-    ),
-    action: "documents",
-  },
-  {
     label: "Contact",
     svg: (
       <svg viewBox="0 0 24 24" fill="currentColor" width={22} height={22}>
@@ -65,9 +57,18 @@ const BTN_ICONS = [
 ] as const;
 
 export default function ActivityBar({ explorerOpen, onToggleExplorer, onSwitch }: Props) {
+  const { mode, setMode, isSourceLang } = useLanguage();
+
   const handle = (action: string) => {
-    if (action === "explorer") { onToggleExplorer(); return; }
+    if (action === "explorer") {
+      onToggleExplorer();
+      return;
+    }
     onSwitch(action as FileKey);
+  };
+
+  const toggleLanguage = () => {
+    setMode(isSourceLang ? "ts" : "sourcelang");
   };
 
   return (
@@ -99,7 +100,7 @@ export default function ActivityBar({ explorerOpen, onToggleExplorer, onSwitch }
             background: "transparent",
             border: "none",
             borderLeft: i === 0 && explorerOpen ? "2px solid #007acc" : "2px solid transparent",
-            color: (i === 0 && explorerOpen) ? "#d4d4d4" : "#858585",
+            color: i === 0 && explorerOpen ? "#d4d4d4" : "#858585",
             borderRadius: 4,
             transition: "color 0.15s",
           }}
@@ -112,15 +113,53 @@ export default function ActivityBar({ explorerOpen, onToggleExplorer, onSwitch }
           {b.svg}
         </button>
       ))}
+      
+      <button
+        title={isSourceLang ? "Switch to TypeScript" : "Switch to SourceLang"}
+        onClick={toggleLanguage}
+        style={{
+          width: 40,
+          height: 40,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          background: "transparent",
+          border: "none",
+          cursor: "pointer",
+          color: isSourceLang ? "#d4d4d4" : "#858585",
+          borderRadius: 4,
+          transition: "color 0.15s",
+          marginTop: "auto",
+          marginBottom: 8,
+        }}
+        onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "#d4d4d4")}
+        onMouseLeave={(e) => {
+          (e.currentTarget as HTMLElement).style.color = isSourceLang ? "#d4d4d4" : "#858585";
+        }}
+      >
+        {isSourceLang ? (
+          <svg viewBox="0 0 24 24" fill="currentColor" width={22} height={22}>
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z" />
+          </svg>
+        ) : (
+          <svg viewBox="0 0 24 24" fill="currentColor" width={22} height={22}>
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z" />
+          </svg>
+        )}
+      </button>
 
-      {/* Bottom: settings */}
-      <div style={{ marginTop: "auto", marginBottom: 8 }}>
+      <div style={{ marginBottom: 8 }}>
         <button
           title="Paramètres"
           style={{
-            width: 40, height: 40,
-            display: "flex", alignItems: "center", justifyContent: "center",
-            background: "transparent", border: "none", cursor: "pointer",
+            width: 40,
+            height: 40,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "transparent",
+            border: "none",
+            cursor: "pointer",
             color: "#858585",
           }}
           onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "#d4d4d4")}

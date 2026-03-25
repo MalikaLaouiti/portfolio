@@ -1,12 +1,13 @@
 "use client";
-import { FileKey, FILES, FILE_KEYS } from "@/src/lib/files";
+import { FileKey, FILE_KEYS } from "@/src/lib/files";
+import { useLanguage } from "@/src/contexts/LanguageContext";
 
 interface Props {
   current: FileKey;
   onSwitch: (k: FileKey) => void;
 }
 
-function FileIcon({ type }: { type: "ts" | "json" | "mdx" | "pdf" }) {
+function FileIcon({ type }: { type: "ts" | "json" | "mdx" | "pdf" | "src" }) {
   if (type === "ts") {
     return (
       <svg width={14} height={14} viewBox="0 0 24 24" fill="#3178c6">
@@ -31,6 +32,22 @@ function FileIcon({ type }: { type: "ts" | "json" | "mdx" | "pdf" }) {
       </svg>
     );
   }
+  if (type === "json") {
+    return (
+      <svg width={14} height={14} viewBox="0 0 24 24" fill="#e8a038">
+        <rect x="2" y="2" width="20" height="20" rx="3" />
+        <text x="3" y="17" fill="white" fontSize="8" fontWeight="bold" fontFamily="monospace">{'{}'}</text>
+      </svg>
+    );
+  }
+  if (type === "src") {
+    return (
+      <svg width={14} height={14} viewBox="0 0 24 24" fill="#914caf">
+        <rect x="2" y="2" width="20" height="20" rx="3" />
+        <text x="3.5" y="17" fill="white" fontSize="8" fontWeight="bold" fontFamily="monospace">SRC</text>
+      </svg>
+    );
+  }
   return (
     <svg width={14} height={14} viewBox="0 0 24 24" fill="#e8a038">
       <path d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm7 13l4-4H9l3 4zm0-6 3-4H9l3 4z" />
@@ -39,6 +56,8 @@ function FileIcon({ type }: { type: "ts" | "json" | "mdx" | "pdf" }) {
 }
 
 export default function Explorer({ current, onSwitch }: Props) {
+  const { getFile, isSourceLang } = useLanguage();
+
   return (
     <div
       style={{
@@ -60,12 +79,29 @@ export default function Explorer({ current, onSwitch }: Props) {
           color: "#bbb",
           letterSpacing: 1,
           textTransform: "uppercase",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
         }}
       >
-        Explorateur
+        <span>Explorateur</span>
+        <span style={{ fontSize: 10, color: "#007acc" }}>
+          {isSourceLang ?<>
+           <img 
+            src="/sourcelang-icon.ico"
+            alt="SourceLang Icon" 
+            style={{ width: "12px", height: "12px" }} 
+            
+          />SourceLang</>:<>
+           <img 
+            src="/ts-icon.ico"
+            alt="TypeScript Icon" 
+            style={{ width: "12px", height: "12px"}} 
+            
+          />TypeScript</>}
+        </span>
       </div>
 
-      {/* folder label */}
       <div
         style={{
           display: "flex",
@@ -90,7 +126,7 @@ export default function Explorer({ current, onSwitch }: Props) {
       {/* files */}
       <div style={{ padding: "2px 0" }}>
         {FILE_KEYS.map((k) => {
-          const f = FILES[k];
+          const f = getFile(k);
           const active = k === current;
           return (
             <div
@@ -123,6 +159,11 @@ export default function Explorer({ current, onSwitch }: Props) {
             >
               <FileIcon type={f.icon} />
               {f.name}
+              {isSourceLang && f.lang === "SourceLang" && (
+                <span style={{ marginLeft: "auto", fontSize: 9, color: "#007acc" }}>
+                  SL
+                </span>
+              )}
             </div>
           );
         })}

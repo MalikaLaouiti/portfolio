@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { FileKey, FILES } from "@/src/lib/files";
+import { FileKey, FILES } from "@/src/lib/files-ts";
 
 import TitleBar from "@/src/components/TitleBar";
 import ActivityBar from "@/src/components/ActivityBar";

@@ -1,6 +1,6 @@
 "use client";
 import { useState, useRef } from "react";
-import { DemoProject } from "@/src/lib/files";
+import { DemoProject } from "@/src/lib/demo-projects";
 
 interface Props {
   demos: DemoProject[];

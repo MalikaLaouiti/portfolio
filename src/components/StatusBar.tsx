@@ -1,12 +1,15 @@
 "use client";
-import { FileKey, FILES } from "@/src/lib/files";
+import { FileKey } from "@/src/lib/files";
+import { useLanguage } from "@/src/contexts/LanguageContext";
 
 interface Props {
   fileKey: FileKey;
 }
 
 export default function StatusBar({ fileKey }: Props) {
-  const f = FILES[fileKey];
+  const { getFile, isSourceLang } = useLanguage();
+  const f = getFile(fileKey);
+  
   return (
     <div
       style={{
@@ -40,7 +43,9 @@ export default function StatusBar({ fileKey }: Props) {
         <span style={{ cursor: "pointer", padding: "0 4px" }}>{f.name}</span>
         <span style={{ cursor: "pointer", padding: "0 4px" }}>Ln 1, Col 1</span>
         <span style={{ cursor: "pointer", padding: "0 4px" }}>UTF-8</span>
-        <span style={{ cursor: "pointer", padding: "0 4px" }}>{f.lang}</span>
+        <span style={{ cursor: "pointer", padding: "0 4px" }}>
+          {isSourceLang ? "SourceLang" : f.lang}
+        </span>
         <span style={{ cursor: "pointer", padding: "0 4px" }}>💼 Stage disponible — Monastir 🇹🇳</span>
       </div>
     </div>

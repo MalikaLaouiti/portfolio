@@ -1,5 +1,6 @@
 "use client";
-import { FileKey, FILES } from "@/src/lib/files";
+import { FileKey } from "@/src/lib/files";
+import { useLanguage } from "@/src/contexts/LanguageContext";
 
 interface Props {
   openTabs: FileKey[];
@@ -8,9 +9,9 @@ interface Props {
   onClose: (k: FileKey) => void;
 }
 
-function TabIcon({ type }: { type: "ts" | "json" | "mdx" | "pdf" }) {
-  const colors: Record<string, string> = { ts: "#3178c6", json: "#e8a038", mdx: "#f9a825", pdf: "#e53935" };
-  const labels: Record<string, string> = { ts: "TS", json: "{}", mdx: "JSX", pdf: "PDF" };
+function TabIcon({ type }: { type: "ts" | "json" | "mdx" | "pdf" | "src" }) {
+  const colors: Record<string, string> = { ts: "#3178c6", json: "#e8a038", mdx: "#f9a825", pdf: "#e53935", src: "#914caf" };
+  const labels: Record<string, string> = { ts: "TS", json: "{}", mdx: "JSX", pdf: "PDF", src: "SRC" };
   return (
     <svg width={13} height={13} viewBox="0 0 24 24" fill={colors[type]}>
       <rect x="2" y="2" width="20" height="20" rx="3" />
@@ -22,6 +23,8 @@ function TabIcon({ type }: { type: "ts" | "json" | "mdx" | "pdf" }) {
 }
 
 export default function TabBar({ openTabs, current, onSwitch, onClose }: Props) {
+  const { getFile } = useLanguage();
+
   return (
     <div
       style={{
@@ -35,7 +38,7 @@ export default function TabBar({ openTabs, current, onSwitch, onClose }: Props) 
       }}
     >
       {openTabs.map((k) => {
-        const f = FILES[k];
+        const f = getFile(k);
         const active = k === current;
         return (
           <div
