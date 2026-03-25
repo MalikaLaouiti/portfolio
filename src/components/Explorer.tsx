@@ -1,6 +1,7 @@
 "use client";
 import { FileKey, FILE_KEYS } from "@/src/lib/files";
 import { useLanguage } from "@/src/contexts/LanguageContext";
+import LanguageSwitch from "./LanguageSwitcher";
 
 interface Props {
   current: FileKey;
@@ -85,21 +86,7 @@ export default function Explorer({ current, onSwitch }: Props) {
         }}
       >
         <span>Explorateur</span>
-        <span style={{ fontSize: 10, color: "#007acc" }}>
-          {isSourceLang ?<>
-           <img 
-            src="/sourcelang-icon.ico"
-            alt="SourceLang Icon" 
-            style={{ width: "12px", height: "12px" }} 
-            
-          />SourceLang</>:<>
-           <img 
-            src="/ts-icon.ico"
-            alt="TypeScript Icon" 
-            style={{ width: "12px", height: "12px"}} 
-            
-          />TypeScript</>}
-        </span>
+        <LanguageSwitch />
       </div>
 
       <div
@@ -161,7 +148,7 @@ export default function Explorer({ current, onSwitch }: Props) {
               {f.name}
               {isSourceLang && f.lang === "SourceLang" && (
                 <span style={{ marginLeft: "auto", fontSize: 9, color: "#007acc" }}>
-                  SL
+                  SRC
                 </span>
               )}
             </div>

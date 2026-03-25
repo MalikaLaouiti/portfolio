@@ -13,7 +13,7 @@ interface Props {
 export default function CodeEditor({ fileKey }: Props) {
   const { getFile, isSourceLang } = useLanguage();
   const file = getFile(fileKey);
-  const { visibleCount, done } = useTyping(file.lines, `${fileKey}-${isSourceLang ? "sl" : "ts"}`);
+  const { visibleCount, done } = useTyping(file.lines, `${fileKey}-${isSourceLang ? "src" : "ts"}`);
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -70,27 +70,6 @@ export default function CodeEditor({ fileKey }: Props) {
           whiteSpace: "pre",
         }}
       >
-        {/* Language indicator */}
-        {isSourceLang && (
-          <div
-            style={{
-              position: "sticky",
-              top: 0,
-              right: 0,
-              float: "right",
-              background: "#2d2d2d",
-              padding: "2px 8px",
-              borderRadius: "4px",
-              fontSize: 10,
-              color: "#007acc",
-              fontFamily: "monospace",
-              marginBottom: 8,
-              zIndex: 10,
-            }}
-          >
-            ⚙️ SourceLang
-          </div>
-        )}
         {file.lines.slice(0, visibleCount).map((line, i) => (
           <div key={i} dangerouslySetInnerHTML={{ __html: line || " " }} />
         ))}

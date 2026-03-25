@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
-import { FileKey, FILES } from "@/src/lib/files-ts";
+import { FileKey } from "@/src/lib/files";
+import { useLanguage } from "@/src/contexts/LanguageContext";
 
 import TitleBar from "@/src/components/TitleBar";
 import ActivityBar from "@/src/components/ActivityBar";
@@ -15,6 +16,9 @@ export default function Page() {
   const [current, setCurrent] = useState<FileKey>("about");
   const [openTabs, setOpenTabs] = useState<FileKey[]>(["about"]);
   const [explorerOpen, setExplorerOpen] = useState(true);
+  
+  const { getFile, isSourceLang } = useLanguage();
+  const currentFile = getFile(current);
 
   const switchTab = (k: FileKey) => {
     setCurrent(k);
@@ -77,7 +81,14 @@ export default function Page() {
           >
             <span style={{ color: "#9d9d9d" }}>malika-laouiti-portfolio</span>
             <span style={{ color: "#555" }}>›</span>
-            <span style={{ color: "#d4d4d4" }}>{FILES[current].name}</span>
+            <span style={{ color: "#d4d4d4" }}>
+              {currentFile.name}
+              {isSourceLang && currentFile.lang === "SourceLang" && (
+                <span style={{ marginLeft: 6, fontSize: 10, color: "#007acc" }}>
+                  (SourceLang)
+                </span>
+              )}
+            </span>
           </div>
 
           <CodeEditor fileKey={current} />

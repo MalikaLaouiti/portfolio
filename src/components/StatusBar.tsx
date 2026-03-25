@@ -26,10 +26,10 @@ export default function StatusBar({ fileKey }: Props) {
         fontFamily: "'JetBrains Mono', monospace",
       }}
     >
-      {/* Left */}
+      
       <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 4, cursor: "pointer", padding: "0 4px" }}>
-          {/* git branch icon */}
+         
           <svg viewBox="0 0 24 24" fill="currentColor" width={13} height={13}>
             <path d="M6 2a2 2 0 1 1 0 4 2 2 0 0 1 0-4zm12 0a2 2 0 1 1 0 4 2 2 0 0 1 0-4zM6 18a2 2 0 1 1 0 4 2 2 0 0 1 0-4zm0-8v6M18 6v2a6 6 0 0 1-6 6H8" />
           </svg>
@@ -38,7 +38,7 @@ export default function StatusBar({ fileKey }: Props) {
         <div style={{ cursor: "pointer", padding: "0 4px" }}>0 ⚠ 0 ✗</div>
       </div>
 
-      {/* Right */}
+  
       <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 12 }}>
         <span style={{ cursor: "pointer", padding: "0 4px" }}>{f.name}</span>
         <span style={{ cursor: "pointer", padding: "0 4px" }}>Ln 1, Col 1</span>
@@ -46,7 +46,7 @@ export default function StatusBar({ fileKey }: Props) {
         <span style={{ cursor: "pointer", padding: "0 4px" }}>
           {isSourceLang ? "SourceLang" : f.lang}
         </span>
-        <span style={{ cursor: "pointer", padding: "0 4px" }}>💼 Stage disponible — Monastir 🇹🇳</span>
+        <span style={{ cursor: "pointer", padding: "0 4px" }}>💼 Stage disponible — Monastir Sousse 🇹🇳</span>
       </div>
     </div>
   );
