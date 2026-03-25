@@ -18,9 +18,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="fr" className={cn("font-mono", jetbrainsMono.variable)}>
       <body style={{ height: "100vh", overflow: "hidden" }}>
+
         <LanguageProvider>
           {children}
         </LanguageProvider>
+
       </body>
     </html>
   );

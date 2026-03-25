@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FileKey } from "@/src/lib/files";
 import { useLanguage } from "@/src/contexts/LanguageContext";
 
@@ -11,6 +11,7 @@ import CodeEditor from "@/src/components/CodeEditor";
 import TerminalPanel from "@/src/components/TerminalPanel";
 import StatusBar from "@/src/components/StatusBar";
 import Notification from "@/src/components/Notification";
+import Loading from "./loading"; 
 
 export default function Page() {
   const [current, setCurrent] = useState<FileKey>("about");
@@ -19,6 +20,15 @@ export default function Page() {
   
   const { getFile, isSourceLang } = useLanguage();
   const currentFile = getFile(current);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 5500); // 5.5 seconds minimum
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const switchTab = (k: FileKey) => {
     setCurrent(k);
@@ -37,6 +47,12 @@ export default function Page() {
     }
   };
 
+  // Show loading screen while loading
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  // Show main content after loading
   return (
     <div
       style={{
