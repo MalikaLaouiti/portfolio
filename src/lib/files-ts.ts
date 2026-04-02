@@ -1,10 +1,38 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// ÉTAPE 2 — ajouter "documents" dans la version TypeScript
+//
+// Chaque entrée dans FILES correspond à UN onglet dans l'IDE.
+// Structure d'une entrée :
+//   name   → nom du fichier affiché dans l'onglet et l'explorateur
+//   lang   → label affiché dans la status bar (ex: "TypeScript")
+//   icon   → "pdf" = icône rouge PDF dans l'explorateur
+//   lines  → tableau de lignes HTML avec coloration syntaxique
+//
+// Pour la coloration, on utilise des <span class="..."> :
+//   kw     = keyword  (bleu)       ex: export, const, interface
+//   kw2    = import/export         ex: import, export default
+//   type-t = type/classe (cyan)    ex: Document, Status
+//   fn-t   = fonction (jaune)      ex: documents
+//   str-t  = string (orange)       ex: "CV-MalikaLaouiti.pdf"
+//   num-t  = nombre (vert clair)   ex: 2025
+//   cmt-t  = commentaire (vert)    ex: // ── CV ──
+//   prop-t = propriété (bleu ciel) ex: category, title
+//   bool-t = boolean (bleu)        ex: true, false
+//   enum-t = enum value (cyan)     ex: Available, OnRequest
+//   link-t = lien cliquable        ex: "/documents/CV.pdf"
+//   punc-t = ponctuation           ex: { } [ ] ; : ,
+//   op-t   = opérateur             ex: = | &
+// ─────────────────────────────────────────────────────────────────────────────
+
 import { DEMO_PROJECTS, DemoProject } from "@/src/lib/demo-projects";
+
 export type FileKey =
   | "about"
   | "skills"
   | "experience"
   | "projects"
   | "demos"
+  | "documents"   // ← NOUVEAU
   | "contact"
   | "config";
 
@@ -17,7 +45,8 @@ export interface FileData {
 }
 
 export const FILES: Record<FileKey, FileData> = {
-    // ── about.ts ──────────────────────────────────────────────────────────────
+
+  // ── about.ts ──────────────────────────────────────────────────────────────
   about: {
     name: "about.ts",
     lang: "TypeScript",
@@ -50,7 +79,7 @@ export const FILES: Record<FileKey, FileData> = {
       `<span class="kw2">export default</span> <span class="fn-t">about</span><span class="punc-t">;</span>`,
     ],
   },
- 
+
   // ── skills.ts ─────────────────────────────────────────────────────────────
   skills: {
     name: "skills.ts",
@@ -89,7 +118,7 @@ export const FILES: Record<FileKey, FileData> = {
       `<span class="punc-t">}</span> <span class="kw">as const</span><span class="punc-t">;</span>`,
     ],
   },
- 
+
   // ── experience.ts ─────────────────────────────────────────────────────────
   experience: {
     name: "experience.ts",
@@ -100,63 +129,51 @@ export const FILES: Record<FileKey, FileData> = {
       ``,
       `<span class="kw2">export</span> <span class="kw">const</span> <span class="fn-t">experience</span><span class="punc-t">:</span> <span class="type-t">Experience</span><span class="punc-t">[]</span> <span class="op-t">=</span> <span class="punc-t">[</span>`,
       ``,
-      `  <span class="cmt-t">// ── Internship — YottaByte ─────────────────────</span>`,
+      `  <span class="cmt-t">// ── Stage — YottaByte ──────────────────────────</span>`,
       `  <span class="punc-t">{</span>`,
-      `    <span class="prop-t">type</span><span class="punc-t">:</span>    <span class="str-t">"Internship"</span><span class="punc-t">,</span>`,
-      `    <span class="prop-t">company</span><span class="punc-t">:</span> <span class="str-t">"YottaByte — Monastir, Tunisia"</span><span class="punc-t">,</span>`,
-      `    <span class="prop-t">period</span><span class="punc-t">:</span>  <span class="str-t">"July 2025 – August 2025"</span><span class="punc-t">,</span>`,
-      `    <span class="prop-t">mission</span><span class="punc-t">:</span> <span class="str-t">"Web app integrating 6–10 external APIs"</span><span class="punc-t">,</span>`,
-      `    <span class="prop-t">stack</span><span class="punc-t">:</span>   <span class="punc-t">[</span><span class="str-t">"Next.js 15"</span><span class="punc-t">,</span> <span class="str-t">"Express.js"</span><span class="punc-t">,</span> <span class="str-t">"TypeScript"</span><span class="punc-t">],</span>`,
-      `    <span class="prop-t">tasks</span><span class="punc-t">:</span>   <span class="punc-t">[</span>`,
-      `      <span class="str-t">"Customizable dashboard UI"</span><span class="punc-t">,</span>`,
-      `      <span class="str-t">"Express backend — public API integration &amp; data viz"</span><span class="punc-t">,</span>`,
-      `    <span class="punc-t">],</span>`,
+      `    <span class="prop-t">type</span><span class="punc-t">:</span>     <span class="str-t">"Stage"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">company</span><span class="punc-t">:</span>  <span class="str-t">"YottaByte"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">location</span><span class="punc-t">:</span> <span class="str-t">"Monastir, Tunisie"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">period</span><span class="punc-t">:</span>   <span class="str-t">"Juillet 2025 – Août 2025"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">title</span><span class="punc-t">:</span>    <span class="str-t">"App web multi-API externe (Open-Dash)"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">stack</span><span class="punc-t">:</span>    <span class="punc-t">[</span><span class="str-t">"Next.js 15"</span><span class="punc-t">,</span> <span class="str-t">"Express.js"</span><span class="punc-t">,</span> <span class="str-t">"TypeScript"</span><span class="punc-t">],</span>`,
       `  <span class="punc-t">},</span>`,
       ``,
-      `  <span class="cmt-t">// ── Final Year Project — ISIMM Monastir ────────</span>`,
+      `  <span class="cmt-t">// ── PFE — ISIMM ────────────────────────────────</span>`,
       `  <span class="punc-t">{</span>`,
-      `    <span class="prop-t">type</span><span class="punc-t">:</span>    <span class="str-t">"FYP"</span><span class="punc-t">,</span>`,
-      `    <span class="prop-t">company</span><span class="punc-t">:</span> <span class="str-t">"ISIMM Monastir — Tunisia"</span><span class="punc-t">,</span>`,
-      `    <span class="prop-t">period</span><span class="punc-t">:</span>  <span class="str-t">"January 2025 – June 2025"</span><span class="punc-t">,</span>`,
-      `    <span class="prop-t">mission</span><span class="punc-t">:</span> <span class="str-t">"Fullstack programming language dedicated to the web"</span><span class="punc-t">,</span>`,
-      `    <span class="prop-t">stack</span><span class="punc-t">:</span>   <span class="punc-t">[</span><span class="str-t">"C"</span><span class="punc-t">,</span> <span class="str-t">"Flex"</span><span class="punc-t">,</span> <span class="str-t">"Bison"</span><span class="punc-t">,</span> <span class="str-t">"AST generation"</span><span class="punc-t">],</span>`,
-      `    <span class="prop-t">tasks</span><span class="punc-t">:</span>   <span class="punc-t">[</span><span class="str-t">"Flex/Bison transpiler → AST → web code"</span><span class="punc-t">],</span>`,
-      `    <span class="prop-t">grade</span><span class="punc-t">:</span>   <span class="str-t">"Excellent"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">type</span><span class="punc-t">:</span>     <span class="str-t">"PFE"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">company</span><span class="punc-t">:</span>  <span class="str-t">"ISIMM Monastir"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">location</span><span class="punc-t">:</span> <span class="str-t">"Monastir, Tunisie"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">period</span><span class="punc-t">:</span>   <span class="str-t">"Janvier – Juin 2025"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">title</span><span class="punc-t">:</span>    <span class="str-t">"SourceLang — langage FullStack dédié web"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">stack</span><span class="punc-t">:</span>    <span class="punc-t">[</span><span class="str-t">"C"</span><span class="punc-t">,</span> <span class="str-t">"Flex"</span><span class="punc-t">,</span> <span class="str-t">"Bison"</span><span class="punc-t">,</span> <span class="str-t">"AST"</span><span class="punc-t">],</span>`,
+      `    <span class="prop-t">mention</span><span class="punc-t">:</span>  <span class="str-t">"Excellent"</span><span class="punc-t">,</span>`,
       `  <span class="punc-t">},</span>`,
       ``,
-      `  <span class="cmt-t">// ── Internship — WebProSoft ────────────────────</span>`,
+      `  <span class="cmt-t">// ── Stage — WebProSoft ─────────────────────────</span>`,
       `  <span class="punc-t">{</span>`,
-      `    <span class="prop-t">type</span><span class="punc-t">:</span>    <span class="str-t">"Internship"</span><span class="punc-t">,</span>`,
-      `    <span class="prop-t">company</span><span class="punc-t">:</span> <span class="str-t">"WebProSoft — Monastir, Tunisia"</span><span class="punc-t">,</span>`,
-      `    <span class="prop-t">period</span><span class="punc-t">:</span>  <span class="str-t">"June 2024 – July 2024"</span><span class="punc-t">,</span>`,
-      `    <span class="prop-t">mission</span><span class="punc-t">:</span> <span class="str-t">"Desktop/Web image recognition platform"</span><span class="punc-t">,</span>`,
-      `    <span class="prop-t">stack</span><span class="punc-t">:</span>   <span class="punc-t">[</span><span class="str-t">".NET C#"</span><span class="punc-t">,</span> <span class="str-t">"HTML/JS"</span><span class="punc-t">,</span> <span class="str-t">"Azure AI Models"</span><span class="punc-t">],</span>`,
-      `    <span class="prop-t">tasks</span><span class="punc-t">:</span>   <span class="punc-t">[</span><span class="str-t">"Intuitive UI + Azure AI Vision integration"</span><span class="punc-t">],</span>`,
-      `    <span class="prop-t">grade</span><span class="punc-t">:</span>   <span class="str-t">"Excellent"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">type</span><span class="punc-t">:</span>     <span class="str-t">"Stage"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">company</span><span class="punc-t">:</span>  <span class="str-t">"WebProSoft"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">location</span><span class="punc-t">:</span> <span class="str-t">"Monastir, Tunisie"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">period</span><span class="punc-t">:</span>   <span class="str-t">"Juin – Juillet 2024"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">title</span><span class="punc-t">:</span>    <span class="str-t">"Plateforme Desktop/Web reconnaissance d'images"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">stack</span><span class="punc-t">:</span>    <span class="punc-t">[</span><span class="str-t">".NET C#"</span><span class="punc-t">,</span> <span class="str-t">"HTML/JS"</span><span class="punc-t">,</span> <span class="str-t">"Azure AI"</span><span class="punc-t">],</span>`,
       `  <span class="punc-t">},</span>`,
       ``,
       `  <span class="cmt-t">// ── Freelance ──────────────────────────────────</span>`,
       `  <span class="punc-t">{</span>`,
-      `    <span class="prop-t">type</span><span class="punc-t">:</span>    <span class="str-t">"Freelance"</span><span class="punc-t">,</span>`,
-      `    <span class="prop-t">company</span><span class="punc-t">:</span> <span class="str-t">"Independent client — Remote, Tunisia"</span><span class="punc-t">,</span>`,
-      `    <span class="prop-t">period</span><span class="punc-t">:</span>  <span class="str-t">"January 2024 – March 2024"</span><span class="punc-t">,</span>`,
-      `    <span class="prop-t">mission</span><span class="punc-t">:</span> <span class="str-t">"Desktop application — business management"</span><span class="punc-t">,</span>`,
-      `    <span class="prop-t">stack</span><span class="punc-t">:</span>   <span class="punc-t">[</span><span class="str-t">"Python"</span><span class="punc-t">,</span> <span class="str-t">"PyQt5"</span><span class="punc-t">,</span> <span class="str-t">"MySQL"</span><span class="punc-t">],</span>`,
-      `  <span class="punc-t">},</span>`,
-      ``,
-      `  <span class="cmt-t">// ── Academic Project — ISIMM ───────────────────</span>`,
-      `  <span class="punc-t">{</span>`,
-      `    <span class="prop-t">type</span><span class="punc-t">:</span>    <span class="str-t">"Academic"</span><span class="punc-t">,</span>`,
-      `    <span class="prop-t">company</span><span class="punc-t">:</span> <span class="str-t">"ISIMM Monastir — Tunisia"</span><span class="punc-t">,</span>`,
-      `    <span class="prop-t">period</span><span class="punc-t">:</span>  <span class="str-t">"January 2023 – March 2023"</span><span class="punc-t">,</span>`,
-      `    <span class="prop-t">mission</span><span class="punc-t">:</span> <span class="str-t">"Patient records &amp; disease management application"</span><span class="punc-t">,</span>`,
-      `    <span class="prop-t">stack</span><span class="punc-t">:</span>   <span class="punc-t">[</span><span class="str-t">"Python"</span><span class="punc-t">,</span> <span class="str-t">"PyQt5"</span><span class="punc-t">,</span> <span class="str-t">"MySQL"</span><span class="punc-t">,</span> <span class="str-t">"SQL"</span><span class="punc-t">],</span>`,
+      `    <span class="prop-t">type</span><span class="punc-t">:</span>     <span class="str-t">"Freelance"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">company</span><span class="punc-t">:</span>  <span class="str-t">"Client indépendant"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">location</span><span class="punc-t">:</span> <span class="str-t">"Remote — Tunisie"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">period</span><span class="punc-t">:</span>   <span class="str-t">"Janvier – Mars 2024"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">title</span><span class="punc-t">:</span>    <span class="str-t">"App desktop — gestion d'entreprise"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">stack</span><span class="punc-t">:</span>    <span class="punc-t">[</span><span class="str-t">"Python"</span><span class="punc-t">,</span> <span class="str-t">"PyQt5"</span><span class="punc-t">,</span> <span class="str-t">"MySQL"</span><span class="punc-t">],</span>`,
       `  <span class="punc-t">},</span>`,
       ``,
       `<span class="punc-t">];</span>`,
     ],
   },
- 
+
   // ── projects.ts ───────────────────────────────────────────────────────────
   projects: {
     name: "projects.ts",
@@ -167,107 +184,148 @@ export const FILES: Record<FileKey, FileData> = {
       ``,
       `<span class="kw2">export</span> <span class="kw">const</span> <span class="fn-t">projects</span><span class="punc-t">:</span> <span class="type-t">Project</span><span class="punc-t">[]</span> <span class="op-t">=</span> <span class="punc-t">[</span>`,
       ``,
-      `  <span class="cmt-t">// ── Open-Dash — YottaByte Internship ───────────</span>`,
       `  <span class="punc-t">{</span>`,
-      `    <span class="prop-t">title</span><span class="punc-t">:</span>   <span class="str-t">"🌐 Open-Dash (Live Data Platform)"</span><span class="punc-t">,</span>`,
-      `    <span class="prop-t">context</span><span class="punc-t">:</span> <span class="str-t">"Internship — YottaByte, Monastir"</span><span class="punc-t">,</span>`,
-      `    <span class="prop-t">period</span><span class="punc-t">:</span>  <span class="str-t">"July – August 2025"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">title</span><span class="punc-t">:</span>   <span class="str-t">"🌐 Open-Dash — Live Data Platform"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">context</span><span class="punc-t">:</span> <span class="str-t">"Stage — YottaByte, Monastir"</span><span class="punc-t">,</span>`,
       `    <span class="prop-t">stack</span><span class="punc-t">:</span>   <span class="punc-t">[</span><span class="str-t">"Next.js 15"</span><span class="punc-t">,</span> <span class="str-t">"Leaflet"</span><span class="punc-t">,</span> <span class="str-t">"Chart.js"</span><span class="punc-t">,</span> <span class="str-t">"Express"</span><span class="punc-t">],</span>`,
-      `    <span class="prop-t">demo</span><span class="punc-t">:</span>    <span class="str-t">"https://opendash.vercel.app"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">demo</span><span class="punc-t">:</span>    <span class="link-t">"https://opendash.vercel.app"</span><span class="punc-t">,</span>`,
       `  <span class="punc-t">},</span>`,
-      ``,
-      `  <span class="cmt-t">// ── SourceLang — Final Year Project ISIMM ──────</span>`,
       `  <span class="punc-t">{</span>`,
-      `    <span class="prop-t">title</span><span class="punc-t">:</span>   <span class="str-t">"⚙️  SourceLang (my own programming language)"</span><span class="punc-t">,</span>`,
-      `    <span class="prop-t">context</span><span class="punc-t">:</span> <span class="str-t">"FYP — ISIMM Monastir"</span><span class="punc-t">,</span>`,
-      `    <span class="prop-t">period</span><span class="punc-t">:</span>  <span class="str-t">"January – June 2025"</span><span class="punc-t">,</span>`,
-      `    <span class="prop-t">stack</span><span class="punc-t">:</span>   <span class="punc-t">[</span><span class="str-t">"C"</span><span class="punc-t">,</span> <span class="str-t">"Flex"</span><span class="punc-t">,</span> <span class="str-t">"Bison"</span><span class="punc-t">,</span> <span class="str-t">"AST → web code"</span><span class="punc-t">],</span>`,
-      `    <span class="prop-t">grade</span><span class="punc-t">:</span>   <span class="str-t">"Excellent"</span><span class="punc-t">,</span>`,
-      `    <span class="prop-t">docs</span><span class="punc-t">:</span>    <span class="str-t">"https://sourcelang.vercel.app"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">title</span><span class="punc-t">:</span>   <span class="str-t">"⚙️  SourceLang — custom compiler"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">context</span><span class="punc-t">:</span> <span class="str-t">"PFE — ISIMM Monastir (mention Excellent)"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">stack</span><span class="punc-t">:</span>   <span class="punc-t">[</span><span class="str-t">"C"</span><span class="punc-t">,</span> <span class="str-t">"Flex"</span><span class="punc-t">,</span> <span class="str-t">"Bison"</span><span class="punc-t">,</span> <span class="str-t">"AST"</span><span class="punc-t">],</span>`,
+      `    <span class="prop-t">demo</span><span class="punc-t">:</span>    <span class="link-t">"https://sourcelang.vercel.app"</span><span class="punc-t">,</span>`,
       `  <span class="punc-t">},</span>`,
-      ``,
-      `  <span class="cmt-t">// ── Analytics Dashboard — Personal Project ──────</span>`,
       `  <span class="punc-t">{</span>`,
-      `    <span class="prop-t">title</span><span class="punc-t">:</span>    <span class="str-t">"📊 Internship Analytics Dashboard"</span><span class="punc-t">,</span>`,
-      `    <span class="prop-t">context</span><span class="punc-t">:</span>  <span class="str-t">"Personal project"</span><span class="punc-t">,</span>`,
-      `    <span class="prop-t">stack</span><span class="punc-t">:</span>    <span class="punc-t">[</span><span class="str-t">"Next.js"</span><span class="punc-t">,</span> <span class="str-t">"TypeScript"</span><span class="punc-t">,</span> <span class="str-t">"MongoDB"</span><span class="punc-t">],</span>`,
-      `    <span class="prop-t">features</span><span class="punc-t">:</span> <span class="punc-t">[</span>`,
-      `      <span class="str-t">"Upload Excel"</span><span class="punc-t">,</span> <span class="str-t">"Parse"</span><span class="punc-t">,</span> <span class="str-t">"Filter"</span><span class="punc-t">,</span>`,
-      `      <span class="str-t">"Export JSON"</span><span class="punc-t">,</span> <span class="str-t">"Visualize"</span><span class="punc-t">,</span> <span class="str-t">"Analyze Data"</span><span class="punc-t">,</span>`,
-      `    <span class="punc-t">],</span>`,
-      `    <span class="prop-t">demo</span><span class="punc-t">:</span>     <span class="str-t">"https://pfe-internship-isimm.netlify.app/dashboard"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">title</span><span class="punc-t">:</span>   <span class="str-t">"📊 Internship Analytics Dashboard"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">stack</span><span class="punc-t">:</span>   <span class="punc-t">[</span><span class="str-t">"Next.js"</span><span class="punc-t">,</span> <span class="str-t">"TypeScript"</span><span class="punc-t">,</span> <span class="str-t">"MongoDB"</span><span class="punc-t">],</span>`,
+      `    <span class="prop-t">demo</span><span class="punc-t">:</span>    <span class="link-t">"https://pfe-internship-isimm.netlify.app/dashboard"</span><span class="punc-t">,</span>`,
       `  <span class="punc-t">},</span>`,
-      ``,
-      `  <span class="cmt-t">// ── Image Recognition — WebProSoft Internship ───</span>`,
       `  <span class="punc-t">{</span>`,
       `    <span class="prop-t">title</span><span class="punc-t">:</span>   <span class="str-t">"🤖 Image Recognition Platform"</span><span class="punc-t">,</span>`,
-      `    <span class="prop-t">context</span><span class="punc-t">:</span> <span class="str-t">"Internship — WebProSoft, Monastir"</span><span class="punc-t">,</span>`,
-      `    <span class="prop-t">period</span><span class="punc-t">:</span>  <span class="str-t">"June – July 2024"</span><span class="punc-t">,</span>`,
-      `    <span class="prop-t">stack</span><span class="punc-t">:</span>   <span class="punc-t">[</span><span class="str-t">".NET C#"</span><span class="punc-t">,</span> <span class="str-t">"HTML/JS"</span><span class="punc-t">,</span> <span class="str-t">"Azure AI Models"</span><span class="punc-t">],</span>`,
-      `    <span class="prop-t">grade</span><span class="punc-t">:</span>   <span class="str-t">"Excellent"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">context</span><span class="punc-t">:</span> <span class="str-t">"Stage — WebProSoft, Monastir"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">stack</span><span class="punc-t">:</span>   <span class="punc-t">[</span><span class="str-t">".NET C#"</span><span class="punc-t">,</span> <span class="str-t">"HTML/JS"</span><span class="punc-t">,</span> <span class="str-t">"Azure AI"</span><span class="punc-t">],</span>`,
+      `    <span class="prop-t">repo</span><span class="punc-t">:</span>    <span class="link-t">"github.com/MalikaLaouiti"</span><span class="punc-t">,</span>`,
       `  <span class="punc-t">},</span>`,
       ``,
       `<span class="punc-t">];</span>`,
-      ``,
-      `<span class="cmt-t">// 🔗 github.com/MalikaLaouiti</span>`,
     ],
   },
- 
+
   // ── demos.tsx ─────────────────────────────────────────────────────────────
   demos: {
     name: "demos.tsx",
-    lang: "TypeScript",
+    lang: "TSX",
     icon: "mdx",
     demos: DEMO_PROJECTS,
     lines: [
-      `<span class="kw2">import</span> <span class="type-t">React</span> <span class="kw2">from</span> <span class="str-t">"react"</span><span class="punc-t">;</span>`,
-      `<span class="kw2">import</span> <span class="punc-t">{</span> <span class="type-t">DemoCard</span> <span class="punc-t">}</span> <span class="kw2">from</span> <span class="str-t">"@/components/ui"</span><span class="punc-t">;</span>`,
+      `<span class="kw2">import</span> <span class="type-t">DemoCard</span> <span class="kw2">from</span> <span class="str-t">"./components/DemoCard"</span><span class="punc-t">;</span>`,
       ``,
-      `<span class="cmt-t">/**</span>`,
-      `<span class="cmt-t"> * LIVE DEMOS</span>`,
-      `<span class="cmt-t"> * Deployed projects — click to preview or open</span>`,
-      `<span class="cmt-t"> */</span>`,
-      ``,
-      `<span class="kw">const</span> <span class="fn-t">DemosPage</span><span class="punc-t">:</span> <span class="type-t">React.FC</span> <span class="op-t">=</span> <span class="punc-t">() =&gt; {</span>`,
-      `  <span class="kw2">return</span> <span class="punc-t">(</span>`,
-      `    <span class="punc-t">&lt;</span><span class="type-t">main</span><span class="punc-t">&gt;</span>`,
-      ``,
-      `      <span class="cmt-t">{/* ─── LIVE — Open-Dash ─── */}</span>`,
-      `      <span class="punc-t">&lt;</span><span class="type-t">DemoCard</span>`,
-      `        <span class="prop-t">title</span><span class="op-t">=</span><span class="str-t">"🌐 Open-Dash"</span>`,
-      `        <span class="prop-t">url</span><span class="op-t">=</span><span class="str-t">"https://opendash.vercel.app"</span>`,
-      `        <span class="prop-t">badge</span><span class="op-t">=</span><span class="str-t">"LIVE"</span>`,
-      `      <span class="punc-t">/&gt;</span>`,
-      ``,
-      `      <span class="cmt-t">{/* ─── LIVE — SourceLang ─── */}</span>`,
-      `      <span class="punc-t">&lt;</span><span class="type-t">DemoCard</span>`,
-      `        <span class="prop-t">title</span><span class="op-t">=</span><span class="str-t">"⚙️  SourceLang"</span>`,
-      `        <span class="prop-t">url</span><span class="op-t">=</span><span class="str-t">"https://sourcelang.vercel.app"</span>`,
-      `        <span class="prop-t">badge</span><span class="op-t">=</span><span class="str-t">"LIVE"</span>`,
-      `      <span class="punc-t">/&gt;</span>`,
-      ``,
-      `      <span class="cmt-t">{/* ─── LIVE — Analytics Dashboard ─── */}</span>`,
-      `      <span class="punc-t">&lt;</span><span class="type-t">DemoCard</span>`,
-      `        <span class="prop-t">title</span><span class="op-t">=</span><span class="str-t">"📊 Internship Analytics Dashboard"</span>`,
-      `        <span class="prop-t">url</span><span class="op-t">=</span><span class="str-t">"https://pfe-internship-isimm.netlify.app/dashboard"</span>`,
-      `        <span class="prop-t">badge</span><span class="op-t">=</span><span class="str-t">"LIVE"</span>`,
-      `      <span class="punc-t">/&gt;</span>`,
-      ``,
-      `      <span class="cmt-t">{/* ─── GitHub — Image Recognition ─── */}</span>`,
-      `      <span class="punc-t">&lt;</span><span class="type-t">DemoCard</span>`,
-      `        <span class="prop-t">title</span><span class="op-t">=</span><span class="str-t">"🤖 Image Recognition (Azure AI)"</span>`,
-      `        <span class="prop-t">url</span><span class="op-t">=</span><span class="str-t">"https://github.com/MalikaLaouiti"</span>`,
-      `        <span class="prop-t">badge</span><span class="op-t">=</span><span class="str-t">"GitHub"</span>`,
-      `      <span class="punc-t">/&gt;</span>`,
-      ``,
-      `    <span class="punc-t">&lt;/</span><span class="type-t">main</span><span class="punc-t">&gt;</span>`,
-      `  <span class="punc-t">);</span>`,
-      `<span class="punc-t">};</span>`,
+      `<span class="kw2">export</span> <span class="kw">const</span> <span class="fn-t">DemosPage</span> <span class="op-t">=</span> <span class="punc-t">() =&gt; (</span>`,
+      `  <span class="punc-t">&lt;</span><span class="type-t">main</span><span class="punc-t">&gt;</span>`,
+      `    <span class="cmt-t">{/* ─── LIVE — Open-Dash ─── */}</span>`,
+      `    <span class="punc-t">&lt;</span><span class="type-t">DemoCard</span> <span class="prop-t">title</span><span class="op-t">=</span><span class="str-t">"🌐 Open-Dash"</span>`,
+      `      <span class="prop-t">url</span><span class="op-t">=</span><span class="str-t">"https://opendash.vercel.app"</span> <span class="prop-t">badge</span><span class="op-t">=</span><span class="str-t">"LIVE"</span> <span class="punc-t">/&gt;</span>`,
+      `    <span class="cmt-t">{/* ─── LIVE — SourceLang ─── */}</span>`,
+      `    <span class="punc-t">&lt;</span><span class="type-t">DemoCard</span> <span class="prop-t">title</span><span class="op-t">=</span><span class="str-t">"⚙️  SourceLang"</span>`,
+      `      <span class="prop-t">url</span><span class="op-t">=</span><span class="str-t">"https://sourcelang.vercel.app"</span> <span class="prop-t">badge</span><span class="op-t">=</span><span class="str-t">"LIVE"</span> <span class="punc-t">/&gt;</span>`,
+      `    <span class="cmt-t">{/* ─── LIVE — Analytics ─── */}</span>`,
+      `    <span class="punc-t">&lt;</span><span class="type-t">DemoCard</span> <span class="prop-t">title</span><span class="op-t">=</span><span class="str-t">"📊 Internship Dashboard"</span>`,
+      `      <span class="prop-t">url</span><span class="op-t">=</span><span class="str-t">"https://pfe-internship-isimm.netlify.app/dashboard"</span> <span class="prop-t">badge</span><span class="op-t">=</span><span class="str-t">"LIVE"</span> <span class="punc-t">/&gt;</span>`,
+      `    <span class="cmt-t">{/* ─── GitHub — Image Recognition ─── */}</span>`,
+      `    <span class="punc-t">&lt;</span><span class="type-t">DemoCard</span> <span class="prop-t">title</span><span class="op-t">=</span><span class="str-t">"🤖 Image Recognition"</span>`,
+      `      <span class="prop-t">url</span><span class="op-t">=</span><span class="str-t">"https://github.com/MalikaLaouiti"</span> <span class="prop-t">badge</span><span class="op-t">=</span><span class="str-t">"GitHub"</span> <span class="punc-t">/&gt;</span>`,
+      `  <span class="punc-t">&lt;/</span><span class="type-t">main</span><span class="punc-t">&gt;</span>`,
+      `<span class="punc-t">);</span>`,
       ``,
       `<span class="kw2">export default</span> <span class="fn-t">DemosPage</span><span class="punc-t">;</span>`,
     ],
   },
- 
+
+  documents: {
+    name: "documents.ts",
+    lang: "TypeScript",
+    icon: "pdf",   // ← "pdf" déclenche le rendu DocumentsPanel dans CodeEditor
+    lines: [
+      `<span class="kw2">import</span> <span class="kw">type</span> <span class="punc-t">{</span> <span class="type-t">Document</span><span class="punc-t">,</span> <span class="type-t">DocStatus</span> <span class="punc-t">}</span> <span class="kw2">from</span> <span class="str-t">"./types"</span><span class="punc-t">;</span>`,
+      ``,
+      `<span class="cmt-t">// ── Types (pour référence) ────────────────────────────────</span>`,
+      `<span class="cmt-t">// type DocStatus = "available" | "on-request";</span>`,
+      `<span class="cmt-t">// interface Document {</span>`,
+      `<span class="cmt-t">//   category: string;  title: string;</span>`,
+      `<span class="cmt-t">//   file: string;       status: DocStatus;</span>`,
+      `<span class="cmt-t">// }</span>`,
+      ``,
+      `<span class="kw2">export</span> <span class="kw">const</span> <span class="fn-t">documents</span><span class="punc-t">:</span> <span class="type-t">Document</span><span class="punc-t">[]</span> <span class="op-t">=</span> <span class="punc-t">[</span>`,
+      ``,
+      `  <span class="cmt-t">// ── CV ─────────────────────────────────────────────────</span>`,
+      `  <span class="punc-t">{</span>`,
+      `    <span class="prop-t">category</span><span class="punc-t">:</span> <span class="str-t">"CV"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">title</span><span class="punc-t">:</span>    <span class="str-t">"Curriculum Vitæ — LAOUITI Malika"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">year</span><span class="punc-t">:</span>     <span class="num-t">2025</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">file</span><span class="punc-t">:</span>     <span class="link-t">"/documents/CV-MalikaLaouiti.pdf"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">status</span><span class="punc-t">:</span>   <span class="str-t">"available"</span><span class="punc-t">,</span>`,
+      `  <span class="punc-t">},</span>`,
+      ``,
+      `  <span class="cmt-t">// ── Attestations de Stage ──────────────────────────────</span>`,
+      `  <span class="punc-t">{</span>`,
+      `    <span class="prop-t">category</span><span class="punc-t">:</span> <span class="str-t">"Attestation de Stage"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">title</span><span class="punc-t">:</span>    <span class="str-t">"YottaByte — Juillet–Août 2025"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">company</span><span class="punc-t">:</span>  <span class="str-t">"YottaByte, Monastir"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">file</span><span class="punc-t">:</span>     <span class="link-t">"/documents/attestation-yottabyte-2025.pdf"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">status</span><span class="punc-t">:</span>   <span class="str-t">"available"</span><span class="punc-t">,</span>`,
+      `  <span class="punc-t">},</span>`,
+      `  <span class="punc-t">{</span>`,
+      `    <span class="prop-t">category</span><span class="punc-t">:</span> <span class="str-t">"Attestation de Stage"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">title</span><span class="punc-t">:</span>    <span class="str-t">"WebProSoft — Juin–Juillet 2024"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">company</span><span class="punc-t">:</span>  <span class="str-t">"WebProSoft, Monastir"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">file</span><span class="punc-t">:</span>     <span class="link-t">"/documents/attestation-webprosoft-2024.pdf"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">status</span><span class="punc-t">:</span>   <span class="str-t">"available"</span><span class="punc-t">,</span>`,
+      `  <span class="punc-t">},</span>`,
+      ``,
+      `  <span class="cmt-t">// ── Certificat ─────────────────────────────────────────</span>`,
+      `  <span class="punc-t">{</span>`,
+      `    <span class="prop-t">category</span><span class="punc-t">:</span> <span class="str-t">"Certificat"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">title</span><span class="punc-t">:</span>    <span class="str-t">"CCNA 1 — Introduction to Networks"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">issuer</span><span class="punc-t">:</span>   <span class="str-t">"Cisco Networking Academy"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">file</span><span class="punc-t">:</span>     <span class="link-t">"/documents/certificat-ccna1.pdf"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">status</span><span class="punc-t">:</span>   <span class="str-t">"available"</span><span class="punc-t">,</span>`,
+      `  <span class="punc-t">},</span>`,
+      ``,
+      `  <span class="cmt-t">// ── Diplômes ───────────────────────────────────────────</span>`,
+      `  <span class="punc-t">{</span>`,
+      `    <span class="prop-t">category</span><span class="punc-t">:</span> <span class="str-t">"Diplôme"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">title</span><span class="punc-t">:</span>    <span class="str-t">"Licence GL & SI — ISIMM Monastir"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">mention</span><span class="punc-t">:</span>  <span class="str-t">"Excellent (FYP: SourceLang)"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">year</span><span class="punc-t">:</span>     <span class="num-t">2025</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">file</span><span class="punc-t">:</span>     <span class="link-t">"/documents/diplome-licence-isimm-2025.pdf"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">status</span><span class="punc-t">:</span>   <span class="str-t">"available"</span><span class="punc-t">,</span>`,
+      `  <span class="punc-t">},</span>`,
+      `  <span class="punc-t">{</span>`,
+      `    <span class="prop-t">category</span><span class="punc-t">:</span> <span class="str-t">"Baccalauréat"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">title</span><span class="punc-t">:</span>    <span class="str-t">"Bac Technologique — Ibn Khaldoun Jemmel"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">grade</span><span class="punc-t">:</span>    <span class="num-t">15.73</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">year</span><span class="punc-t">:</span>     <span class="num-t">2022</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">file</span><span class="punc-t">:</span>     <span class="link-t">"/documents/baccalaureat-2022.pdf"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">status</span><span class="punc-t">:</span>   <span class="str-t">"available"</span><span class="punc-t">,</span>`,
+      `  <span class="punc-t">},</span>`,
+      ``,
+      `  <span class="cmt-t">// ── Relevé de notes ────────────────────────────────────</span>`,
+      `  <span class="punc-t">{</span>`,
+      `    <span class="prop-t">category</span><span class="punc-t">:</span> <span class="str-t">"Relevé de notes"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">title</span><span class="punc-t">:</span>    <span class="str-t">"Relevé — Licence ISIMM (2022–2025)"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">file</span><span class="punc-t">:</span>     <span class="link-t">"/documents/releve-notes-licence.pdf"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">status</span><span class="punc-t">:</span>   <span class="str-t">"on-request"</span><span class="punc-t">,</span>  <span class="cmt-t">// disponible sur demande</span>`,
+      `  <span class="punc-t">},</span>`,
+      ``,
+      `<span class="punc-t">];</span>`,
+      ``,
+      `<span class="cmt-t">// ℹ️  Pour télécharger : cliquer sur le bouton de chaque carte</span>`,
+      `<span class="cmt-t">// ℹ️  Placer les PDF dans /public/documents/ avec les noms ci-dessus</span>`,
+      `<span class="cmt-t">// ℹ️  Contact : laouiti.malika@yahoo.com</span>`,
+    ],
+  },
+
   // ── contact.ts ────────────────────────────────────────────────────────────
   contact: {
     name: "contact.ts",
@@ -290,7 +348,7 @@ export const FILES: Record<FileKey, FileData> = {
       `<span class="punc-t">};</span>`,
     ],
   },
- 
+
   // ── package.json ──────────────────────────────────────────────────────────
   config: {
     name: "package.json",
@@ -325,11 +383,6 @@ export const FILES: Record<FileKey, FileData> = {
 };
 
 export const FILE_KEYS: FileKey[] = [
-  "about",
-  "skills",
-  "experience",
-  "projects",
-  "demos",
-  "contact",
-  "config",
+  "about", "skills", "experience", "projects",
+  "demos", "documents", "contact", "config",
 ];

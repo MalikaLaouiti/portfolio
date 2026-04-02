@@ -7,6 +7,7 @@ export type FileKey =
   | "experience"
   | "projects"
   | "demos"
+  | "documents" 
   | "contact"
   | "config";
 
@@ -26,6 +27,6 @@ export const FILES_SOURCELANG: Record<FileKey, FileData> = SOURCELANG_FILES;
 
 export const FILE_KEYS: FileKey[] = [
   "about", "skills", "experience", "projects",
-  "demos", "contact", "config",
+  "demos", "documents", "contact", "config",
 ];
 
