@@ -22,7 +22,6 @@ export function ProgressSection({ progress }: ProgressSectionProps) {
         padding: "14px 18px 18px",
       }}
     >
-      {/* Step Label */}
       <div
         style={{
           display: "flex",
