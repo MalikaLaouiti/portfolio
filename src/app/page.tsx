@@ -12,12 +12,14 @@ import TerminalPanel from "@/src/components/TerminalPanel";
 import StatusBar from "@/src/components/StatusBar";
 import Notification from "@/src/components/Notification";
 import Loading from "./loading"; 
+import { useIsMobile } from "../hooks/use-mobile";
 
 export default function Page() {
   const [current, setCurrent] = useState<FileKey>("about");
   const [openTabs, setOpenTabs] = useState<FileKey[]>(["about"]);
   const [explorerOpen, setExplorerOpen] = useState(true);
   
+  const isMobile = useIsMobile();
   const { getFile, isSourceLang } = useLanguage();
   const currentFile = getFile(current);
   const [isLoading, setIsLoading] = useState(true);
@@ -47,12 +49,14 @@ export default function Page() {
     }
   };
 
-  // Show loading screen while loading
   if (isLoading) {
     return <Loading />;
   }
 
-  // Show main content after loading
+  if (isMobile){
+    setExplorerOpen(false);
+  }
+  
   return (
     <div
       style={{
