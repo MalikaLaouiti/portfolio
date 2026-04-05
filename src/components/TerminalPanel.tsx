@@ -47,7 +47,9 @@ export default function TerminalPanel() {
   return (
     <div
       style={{
-        height: 130,
+        height: 250,
+        resize : "block",
+        overflow: "auto",
         background: "#252526",
         borderTop: "1px solid #3c3c3c",
         flexShrink: 0,
@@ -55,6 +57,7 @@ export default function TerminalPanel() {
         flexDirection: "column",
         fontFamily: "'JetBrains Mono', monospace",
       }}
+      
     >
       {/* Panel tabs */}
       <div style={{ display: "flex", background: "#2d2d2d", borderBottom: "1px solid #3c3c3c", height: 28, flexShrink: 0 }}>

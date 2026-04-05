@@ -46,6 +46,15 @@ const BTN_ICONS = [
     action: "demos",
   },
   {
+    label:"Documents",
+    svg: (
+      <svg viewBox="0 0 24 24" fill="currentColor" width={22} height={22}>
+        <path d="M6 2h9l5 5v13c0 1.1-.9 2-2 2H6c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2zm7 7V3.5L18.5 9H13z" />
+      </svg>
+    ),
+    action: "documents",
+  },
+  {
     label: "Contact",
     svg: (
       <svg viewBox="0 0 24 24" fill="currentColor" width={22} height={22}>
@@ -53,7 +62,7 @@ const BTN_ICONS = [
       </svg>
     ),
     action: "contact",
-  },
+  }
 ] as const;
 
 export default function ActivityBar({ explorerOpen, onToggleExplorer, onSwitch }: Props) {

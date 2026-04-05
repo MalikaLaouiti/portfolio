@@ -35,10 +35,10 @@ export default function LanguageSwitch() {
     >
       <img 
         src={isSourceLang ? "/sourcelang-icon.ico" : "/ts-icon.ico"}
-        alt={isSourceLang ? "SourceLang" : "TypeScript"}
+        alt={isSourceLang ? "SourceLang " : "TypeScript "}
         style={{ width: "14px", height: "14px" }}
       />
-      <span>{isSourceLang ? "SourceLang" : "TypeScript"}</span>
+      <span>{isSourceLang ? "SourceLang🔄" : "TypeScript🔄"}</span>
     </button>
   );
 }

@@ -17,7 +17,7 @@ export default function Notification() {
       className="notification-enter"
       style={{
         position: "fixed",
-        bottom: 36,
+        bottom: 126,
         right: 16,
         background: "#252526",
         border: "1px solid #454545",

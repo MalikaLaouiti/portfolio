@@ -2,31 +2,38 @@
 import { useEffect, useState } from "react";
 import { FileKey } from "@/src/lib/files";
 import { useLanguage } from "@/src/contexts/LanguageContext";
+import { useIsMobile } from "../hooks/use-mobile";
 
-import TitleBar from "@/src/components/TitleBar";
-import ActivityBar from "@/src/components/ActivityBar";
-import Explorer from "@/src/components/Explorer";
-import TabBar from "@/src/components/TabBar";
-import CodeEditor from "@/src/components/CodeEditor";
+import TitleBar      from "@/src/components/TitleBar";
+import ActivityBar   from "@/src/components/ActivityBar";
+import Explorer      from "@/src/components/Explorer";
+import TabBar        from "@/src/components/TabBar";
+import CodeEditor    from "@/src/components/CodeEditor";
 import TerminalPanel from "@/src/components/TerminalPanel";
-import StatusBar from "@/src/components/StatusBar";
-import Notification from "@/src/components/Notification";
-import Loading from "./loading"; 
+import StatusBar     from "@/src/components/StatusBar";
+import Notification  from "@/src/components/Notification";
+import Creation      from "@/src/components/Creation";
+import Loading       from "./loading";
+
+
 
 export default function Page() {
-  const [current, setCurrent] = useState<FileKey>("about");
+  const [current,  setCurrent]  = useState<FileKey>("about");
   const [openTabs, setOpenTabs] = useState<FileKey[]>(["about"]);
-  const [explorerOpen, setExplorerOpen] = useState(true);
-  
-  const { getFile, isSourceLang } = useLanguage();
-  const currentFile = getFile(current);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 5500); // 5.5 seconds minimum
+  const isMobile = useIsMobile();
+  const { getFile, isSourceLang } = useLanguage();
+  const currentFile = getFile(current);
 
+  const [explorerOpen, setExplorerOpen] = useState(true);
+
+  useEffect(() => {
+    setExplorerOpen(!isMobile);
+  }, [isMobile]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 5500);
     return () => clearTimeout(timer);
   }, []);
 
@@ -38,30 +45,25 @@ export default function Page() {
   const closeTab = (k: FileKey) => {
     const next = openTabs.filter((t) => t !== k);
     if (!next.length) {
-      const fallback: FileKey = "about";
-      setOpenTabs([fallback]);
-      setCurrent(fallback);
+      setOpenTabs(["about"]);
+      setCurrent("about");
     } else {
       setOpenTabs(next);
       if (current === k) setCurrent(next[next.length - 1]);
     }
   };
 
-  // Show loading screen while loading
-  if (isLoading) {
-    return <Loading />;
-  }
+  if (isLoading) return <Loading />;
 
-  // Show main content after loading
   return (
     <div
       style={{
-        height: "100vh",
-        display: "flex",
+        height:        "100vh",
+        display:       "flex",
         flexDirection: "column",
-        overflow: "hidden",
-        background: "#1e1e1e",
-        color: "#d4d4d4",
+        overflow:      "hidden",
+        background:    "#1e1e1e",
+        color:         "#d4d4d4",
       }}
     >
       <TitleBar />
@@ -77,20 +79,25 @@ export default function Page() {
 
         {/* Editor column */}
         <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
-          <TabBar openTabs={openTabs} current={current} onSwitch={switchTab} onClose={closeTab} />
+          <TabBar
+            openTabs={openTabs}
+            current={current}
+            onSwitch={switchTab}
+            onClose={closeTab}
+          />
 
           {/* Breadcrumb */}
           <div
             style={{
-              height: 24,
-              display: "flex",
+              height:     24,
+              display:    "flex",
               alignItems: "center",
-              padding: "0 14px",
-              fontSize: 12,
-              color: "#858585",
+              padding:    "0 14px",
+              fontSize:   12,
+              color:      "#858585",
               borderBottom: "1px solid #2a2a2a",
               flexShrink: 0,
-              gap: 4,
+              gap:        4,
               background: "#1e1e1e",
               fontFamily: "'JetBrains Mono', monospace",
             }}
@@ -113,6 +120,7 @@ export default function Page() {
       </div>
 
       <StatusBar fileKey={current} />
+      <Creation />
       <Notification />
     </div>
   );

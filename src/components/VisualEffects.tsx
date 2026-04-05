@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useState } from "react";
 
 const CODE_TOKENS = [
@@ -31,20 +32,30 @@ interface Particle {
   opacity: number;
   speed: number;
   size: number;
+  delay:   number;
 }
 
-export function VisualEffects() {
-  const [particles] = useState<Particle[]>(() =>
-    Array.from({ length: 22 }, (_, i) => ({
+function generateParticles(): Particle[] {
+  return Array.from({ length: 22 }, (_, i) => {
+    const speed = 15 + Math.random() * 35;
+    return {
       id: i,
       x: Math.random() * 100,
       y: Math.random() * 100,
       token: CODE_TOKENS[Math.floor(Math.random() * CODE_TOKENS.length)],
       opacity: 0.04 + Math.random() * 0.1,
-      speed: 15 + Math.random() * 35,
+      speed,
       size: 10 + Math.random() * 6,
-    }))
-  );
+      delay: -(Math.random() * speed), // ✅ calculé une fois, stable ensuite
+    };
+  });
+}
+
+export function VisualEffects() {
+  const [particles, setParticles] = useState<Particle[] | null>(null);
+  useEffect(() => {
+    setParticles(generateParticles()); 
+  }, []);
 
   const corners = [
     { top: 20, left: 20, rotate: 0 },
@@ -56,7 +67,7 @@ export function VisualEffects() {
   return (
     <>
       {/* Floating Code Particles */}
-      {particles.map((p) => (
+      {particles?.map((p) => (
         <span
           key={p.id}
           style={{
@@ -68,7 +79,7 @@ export function VisualEffects() {
             opacity: p.opacity,
             fontFamily: "'JetBrains Mono', monospace",
             animation: `floatUp ${p.speed}s linear infinite`,
-            animationDelay: `${-Math.random() * p.speed}s`,
+            animationDelay: `${p.delay}s`,
             pointerEvents: "none",
             userSelect: "none",
             whiteSpace: "nowrap",

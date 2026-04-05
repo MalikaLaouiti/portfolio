@@ -1,4 +1,17 @@
-import {DEMO_PROJECTS,DemoProject}from "@/src/lib/demo-projects";
+// ─────────────────────────────────────────────────────────────────────────────
+// ÉTAPE 3 — ajouter "documents" dans la version SourceLang
+//
+// Même logique que files-ts.ts mais avec la syntaxe de TON langage :
+//   "server";          → directive de mode serveur
+//   export fn X(): void { ... }  → déclaration de fonction
+//   printf("...");     → affichage
+//
+// Pour documents.src, on garde la syntaxe printf car c'est du server-side.
+// L'icône "pdf" (rouge) est identique aux deux versions —
+// c'est CodeEditor qui détecte icon === "pdf" pour rendre DocumentsPanel.
+// ─────────────────────────────────────────────────────────────────────────────
+
+import { DEMO_PROJECTS, DemoProject } from "@/src/lib/demo-projects";
 
 export type FileKey =
   | "about"
@@ -6,21 +19,21 @@ export type FileKey =
   | "experience"
   | "projects"
   | "demos"
+  | "documents"   // ← NOUVEAU
   | "contact"
   | "config";
-
-
 
 export interface FileData {
   name: string;
   lang: string;
   icon: "ts" | "json" | "mdx" | "pdf" | "src";
   lines: string[];
-  demos?: DemoProject[]; 
+  demos?: DemoProject[];
 }
 
 export const FILES: Record<FileKey, FileData> = {
-// ── about.src ─────────────────────────────────────────────────────────────
+
+  // ── about.src ─────────────────────────────────────────────────────────────
   about: {
     name: "about.src",
     lang: "SourceLang",
@@ -55,7 +68,7 @@ export const FILES: Record<FileKey, FileData> = {
       `<span class="punc-t">}</span>`,
     ],
   },
- 
+
   // ── skills.src ────────────────────────────────────────────────────────────
   skills: {
     name: "skills.src",
@@ -92,7 +105,7 @@ export const FILES: Record<FileKey, FileData> = {
       `<span class="punc-t">}</span>`,
     ],
   },
- 
+
   // ── experience.src ────────────────────────────────────────────────────────
   experience: {
     name: "experience.src",
@@ -140,7 +153,7 @@ export const FILES: Record<FileKey, FileData> = {
       `<span class="punc-t">}</span>`,
     ],
   },
- 
+
   // ── projects.src ──────────────────────────────────────────────────────────
   projects: {
     name: "projects.src",
@@ -166,14 +179,14 @@ export const FILES: Record<FileKey, FileData> = {
       `  <span class="fn-t">printf</span><span class="punc-t">(</span><span class="str-t">"[Note]     This very file is written in SourceLang!"</span><span class="punc-t">);</span>`,
       `  <span class="fn-t">printf</span><span class="punc-t">(</span><span class="str-t">"[Docs]     https://sourcelang.vercel.app"</span><span class="punc-t">);</span>`,
       ``,
-      `  <span class="cmt-t">// ── Analytics Dashboard — Personal Project ──────</span>`,
+      `  <span class="cmt-t">// ── Analytics Dashboard ─────────────────────────</span>`,
       `  <span class="fn-t">printf</span><span class="punc-t">(</span><span class="str-t">"📊 Internship Analytics Dashboard"</span><span class="punc-t">);</span>`,
       `  <span class="fn-t">printf</span><span class="punc-t">(</span><span class="str-t">"[Context]  Personal project"</span><span class="punc-t">);</span>`,
       `  <span class="fn-t">printf</span><span class="punc-t">(</span><span class="str-t">"[Stack]    Next.js, TypeScript, MongoDB"</span><span class="punc-t">);</span>`,
       `  <span class="fn-t">printf</span><span class="punc-t">(</span><span class="str-t">"[Features] Upload Excel, Parse, Filter, Export JSON, Visualize, Analyze"</span><span class="punc-t">);</span>`,
       `  <span class="fn-t">printf</span><span class="punc-t">(</span><span class="str-t">"[Demo]     https://pfe-internship-isimm.netlify.app/dashboard"</span><span class="punc-t">);</span>`,
       ``,
-      `  <span class="cmt-t">// ── Image Recognition — WebProSoft Internship ───</span>`,
+      `  <span class="cmt-t">// ── Image Recognition — WebProSoft ──────────────</span>`,
       `  <span class="fn-t">printf</span><span class="punc-t">(</span><span class="str-t">"🤖 Image Recognition Platform"</span><span class="punc-t">);</span>`,
       `  <span class="fn-t">printf</span><span class="punc-t">(</span><span class="str-t">"[Context]  Internship — WebProSoft, Monastir"</span><span class="punc-t">);</span>`,
       `  <span class="fn-t">printf</span><span class="punc-t">(</span><span class="str-t">"[Period]   June – July 2024"</span><span class="punc-t">);</span>`,
@@ -186,7 +199,7 @@ export const FILES: Record<FileKey, FileData> = {
       `<span class="punc-t">}</span>`,
     ],
   },
- 
+
   // ── demos.mdx ─────────────────────────────────────────────────────────────
   demos: {
     name: "demos.mdx",
@@ -240,7 +253,55 @@ export const FILES: Record<FileKey, FileData> = {
       `<span class="punc-t">}</span>`,
     ],
   },
+
  
+  documents: {
+    name: "documents.src",
+    lang: "SourceLang",
+    icon: "pdf",   
+    lines: [
+      `<span class="str-t">"server"</span><span class="punc-t">;</span>`,
+      ``,
+      `<span class="kw">export</span> <span class="kw">fn</span> <span class="fn-t">documents</span><span class="punc-t">():</span> <span class="kw">void</span> <span class="punc-t">{</span>`,
+      ``,
+      `  <span class="cmt-t">// ── CV ──────────────────────────────────────────</span>`,
+      `  <span class="fn-t">printf</span><span class="punc-t">(</span><span class="str-t">"[CV]        CV-MalikaLaouiti.pdf"</span><span class="punc-t">);</span>`,
+      `  <span class="fn-t">printf</span><span class="punc-t">(</span><span class="str-t">"[Year]      2025"</span><span class="punc-t">);</span>`,
+      `  <span class="fn-t">printf</span><span class="punc-t">(</span><span class="str-t">"[Status]    available ✓"</span><span class="punc-t">);</span>`,
+      ``,
+      `  <span class="cmt-t">// ── Internship Certificates ─────────────────────</span>`,
+      `  <span class="fn-t">printf</span><span class="punc-t">(</span><span class="str-t">"[Attest.]   YottaByte — July–August 2025"</span><span class="punc-t">);</span>`,
+      `  <span class="fn-t">printf</span><span class="punc-t">(</span><span class="str-t">"[Company]   YottaByte, Monastir"</span><span class="punc-t">);</span>`,
+      `  <span class="fn-t">printf</span><span class="punc-t">(</span><span class="str-t">"[Status]    available ✓"</span><span class="punc-t">);</span>`,
+      ``,
+      `  <span class="fn-t">printf</span><span class="punc-t">(</span><span class="str-t">"[Attest.]   WebProSoft — June–July 2024"</span><span class="punc-t">);</span>`,
+      `  <span class="fn-t">printf</span><span class="punc-t">(</span><span class="str-t">"[Company]   WebProSoft, Monastir"</span><span class="punc-t">);</span>`,
+      `  <span class="fn-t">printf</span><span class="punc-t">(</span><span class="str-t">"[Status]    available ✓"</span><span class="punc-t">);</span>`,
+      ``,
+      `  <span class="cmt-t">// ── Professional Certificate ─────────────────────</span>`,
+      `  <span class="fn-t">printf</span><span class="punc-t">(</span><span class="str-t">"[Cert.]     CCNA 1 — Introduction to Networks"</span><span class="punc-t">);</span>`,
+      `  <span class="fn-t">printf</span><span class="punc-t">(</span><span class="str-t">"[Issuer]    Cisco Networking Academy"</span><span class="punc-t">);</span>`,
+      `  <span class="fn-t">printf</span><span class="punc-t">(</span><span class="str-t">"[Status]    available ✓"</span><span class="punc-t">);</span>`,
+      ``,
+      `  <span class="cmt-t">// ── Degrees ─────────────────────────────────────</span>`,
+      `  <span class="fn-t">printf</span><span class="punc-t">(</span><span class="str-t">"[Degree]    BSc GL & SI — ISIMM Monastir"</span><span class="punc-t">);</span>`,
+      `  <span class="fn-t">printf</span><span class="punc-t">(</span><span class="str-t">"[Mention]   Excellent (FYP: SourceLang)"</span><span class="punc-t">);</span>`,
+      `  <span class="fn-t">printf</span><span class="punc-t">(</span><span class="str-t">"[Year]      2025"</span><span class="punc-t">);</span>`,
+      `  <span class="fn-t">printf</span><span class="punc-t">(</span><span class="str-t">"[Status]    available ✓"</span><span class="punc-t">);</span>`,
+      ``,
+      `  <span class="fn-t">printf</span><span class="punc-t">(</span><span class="str-t">"[Bac]       Bac Technologique — Ibn Khaldoun Jemmel"</span><span class="punc-t">);</span>`,
+      `  <span class="fn-t">printf</span><span class="punc-t">(</span><span class="str-t">"[Grade]     15.73 / 20"</span><span class="punc-t">);</span>`,
+      `  <span class="fn-t">printf</span><span class="punc-t">(</span><span class="str-t">"[Year]      2022"</span><span class="punc-t">);</span>`,
+      `  <span class="fn-t">printf</span><span class="punc-t">(</span><span class="str-t">"[Status]    available ✓"</span><span class="punc-t">);</span>`,
+      ``,
+      `  <span class="cmt-t">// ── Transcript ──────────────────────────────────</span>`,
+      `  <span class="fn-t">printf</span><span class="punc-t">(</span><span class="str-t">"[Transcript] BSc ISIMM (2022–2025)"</span><span class="punc-t">);</span>`,
+      `  <span class="fn-t">printf</span><span class="punc-t">(</span><span class="str-t">"[Status]     on-request — contact laouiti.malika@yahoo.com"</span><span class="punc-t">);</span>`,
+      ``,
+      `<span class="punc-t">}</span>`,
+    ],
+  },
+
   // ── contact.src ───────────────────────────────────────────────────────────
   contact: {
     name: "contact.src",
@@ -262,7 +323,7 @@ export const FILES: Record<FileKey, FileData> = {
       `<span class="punc-t">}</span>`,
     ],
   },
- 
+
   // ── package.json ──────────────────────────────────────────────────────────
   config: {
     name: "package.json",
@@ -296,7 +357,8 @@ export const FILES: Record<FileKey, FileData> = {
     ],
   },
 };
+
 export const FILE_KEYS: FileKey[] = [
   "about", "skills", "experience", "projects",
-  "demos", "contact", "config",
+  "demos", "documents", "contact", "config",
 ];
