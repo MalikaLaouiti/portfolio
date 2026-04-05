@@ -38,7 +38,7 @@ export default function LanguageSwitch() {
         alt={isSourceLang ? "SourceLang " : "TypeScript "}
         style={{ width: "14px", height: "14px" }}
       />
-      <span>{isSourceLang ? "SourceLang 🔄" : "TypeScript 🔄"}</span>
+      <span>{isSourceLang ? "SourceLang🔄" : "TypeScript🔄"}</span>
     </button>
   );
 }
