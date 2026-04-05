@@ -295,7 +295,6 @@ export const FILES: Record<FileKey, FileData> = {
     ],
   },
 
-  // ── contact.ts ────────────────────────────────────────────────────────────
   contact: {
     name: "contact.ts",
     lang: "TypeScript",
@@ -307,9 +306,9 @@ export const FILES: Record<FileKey, FileData> = {
       ``,
       `  <span class="prop-t">email</span><span class="punc-t">:</span>    <span class="str-t">"laouiti.malika@yahoo.com"</span><span class="punc-t">,</span>`,
       `  <span class="prop-t">phone</span><span class="punc-t">:</span>    <span class="str-t">"+216 25 731 613"</span><span class="punc-t">,</span>`,
-      `  <span class="prop-t">github</span><span class="punc-t">:</span>   <span class="str-t">"github.com/MalikaLaouiti"</span><span class="punc-t">,</span>`,
-      `  <span class="prop-t">linkedin</span><span class="punc-t">:</span> <span class="str-t">"linkedin.com/in/malika-laouiti"</span><span class="punc-t">,</span>`,
-      `  <span class="prop-t">location</span><span class="punc-t">:</span> <span class="str-t">"Cité El Feth, Jemmel, Monastir 5020 🇹🇳"</span><span class="punc-t">,</span>`,
+      `  <span class="prop-t">github</span><span class="punc-t">:</span>   <span class="str-t">"https://github.com/MalikaLaouiti"</span><span class="punc-t">,</span>`,
+      `  <span class="prop-t">linkedin</span><span class="punc-t">:</span> <span class="str-t">"https://linkedin.com/in/malika-laouiti"</span><span class="punc-t">,</span>`,
+      `  <span class="prop-t">location</span><span class="punc-t">:</span> <span class="str-t">"Monastir 5020 TN"</span><span class="punc-t">,</span>`,
       ``,
       `  <span class="cmt-t">// available immediately — software / web / systems internship</span>`,
       `  <span class="prop-t">available</span><span class="punc-t">:</span> <span class="bool-t">true</span><span class="punc-t">,</span>`,

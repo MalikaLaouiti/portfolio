@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 
-export default function Notification() {
+export default function Creation() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -17,7 +17,7 @@ export default function Notification() {
       className="notification-enter"
       style={{
         position: "fixed",
-        bottom: 126,
+        bottom: 36,
         right: 16,
         background: "#252526",
         border: "1px solid #454545",
@@ -31,9 +31,9 @@ export default function Notification() {
         fontFamily: "'JetBrains Mono', monospace",
       }}
     >
-      <div style={{ fontWeight: 600, color: "#d4d4d4", marginBottom: 2 }}>🎮 Portfolio chargé</div>
-      <div style={{ color: "#9d9d9d" }}>
-        Bienvenue dans le portfolio de Laouiti Malika — Disponible immédiatement pour un stage.
+      <div style={{ fontWeight: 600, color: "#d4d4d4", marginBottom: 2 }}>💡 Portfolio inspiration</div>
+      <div style={{ color: "#9d9d9d" }}> 
+        Driven by my vision, with Claude AI as a supporting tool.
       </div>
     </div>
   );
