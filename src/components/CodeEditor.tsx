@@ -5,6 +5,7 @@ import { DEMO_PROJECTS } from "@/src/lib/demo-projects";
 import { useTyping } from "@/src/lib/useTyping";
 import { useLanguage } from "@/src/contexts/LanguageContext";
 import DemosPanel from "./DemosPanel";
+import DocumentsPanel from "./DocumentsPanel";
 
 interface Props {
   fileKey: FileKey;
@@ -21,8 +22,6 @@ export default function CodeEditor({ fileKey }: Props) {
       contentRef.current.scrollTop = contentRef.current.scrollHeight;
     }
   }, [visibleCount]);
-
-  // ── Demos tab gets the split iframe panel ──
   if (fileKey === "demos") {
     return (
       <DemosPanel
@@ -30,6 +29,9 @@ export default function CodeEditor({ fileKey }: Props) {
         codeLines={file.lines}
       />
     );
+  }
+  if (file.icon === "pdf") {
+    return <DocumentsPanel codeLines={file.lines} />;
   }
 
   const lineCount = Math.max(visibleCount, 1);

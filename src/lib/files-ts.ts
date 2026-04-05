@@ -1,29 +1,3 @@
-// ─────────────────────────────────────────────────────────────────────────────
-// ÉTAPE 2 — ajouter "documents" dans la version TypeScript
-//
-// Chaque entrée dans FILES correspond à UN onglet dans l'IDE.
-// Structure d'une entrée :
-//   name   → nom du fichier affiché dans l'onglet et l'explorateur
-//   lang   → label affiché dans la status bar (ex: "TypeScript")
-//   icon   → "pdf" = icône rouge PDF dans l'explorateur
-//   lines  → tableau de lignes HTML avec coloration syntaxique
-//
-// Pour la coloration, on utilise des <span class="..."> :
-//   kw     = keyword  (bleu)       ex: export, const, interface
-//   kw2    = import/export         ex: import, export default
-//   type-t = type/classe (cyan)    ex: Document, Status
-//   fn-t   = fonction (jaune)      ex: documents
-//   str-t  = string (orange)       ex: "CV-MalikaLaouiti.pdf"
-//   num-t  = nombre (vert clair)   ex: 2025
-//   cmt-t  = commentaire (vert)    ex: // ── CV ──
-//   prop-t = propriété (bleu ciel) ex: category, title
-//   bool-t = boolean (bleu)        ex: true, false
-//   enum-t = enum value (cyan)     ex: Available, OnRequest
-//   link-t = lien cliquable        ex: "/documents/CV.pdf"
-//   punc-t = ponctuation           ex: { } [ ] ; : ,
-//   op-t   = opérateur             ex: = | &
-// ─────────────────────────────────────────────────────────────────────────────
-
 import { DEMO_PROJECTS, DemoProject } from "@/src/lib/demo-projects";
 
 export type FileKey =
@@ -32,7 +6,7 @@ export type FileKey =
   | "experience"
   | "projects"
   | "demos"
-  | "documents"   // ← NOUVEAU
+  | "documents"  
   | "contact"
   | "config";
 
@@ -45,8 +19,6 @@ export interface FileData {
 }
 
 export const FILES: Record<FileKey, FileData> = {
-
-  // ── about.ts ──────────────────────────────────────────────────────────────
   about: {
     name: "about.ts",
     lang: "TypeScript",
@@ -57,11 +29,11 @@ export const FILES: Record<FileKey, FileData> = {
       `<span class="kw">const</span> <span class="fn-t">about</span><span class="punc-t">:</span> <span class="type-t">Developer</span> <span class="op-t">=</span> <span class="punc-t">{</span>`,
       ``,
       `  <span class="prop-t">name</span><span class="punc-t">:</span>     <span class="str-t">"LAOUITI Malika"</span><span class="punc-t">,</span>`,
-      `  <span class="prop-t">role</span><span class="punc-t">:</span>     <span class="str-t">"Fullstack Developer &amp; Systems Engineer"</span><span class="punc-t">,</span>`,
+      `  <span class="prop-t">role</span><span class="punc-t">:</span>     <span class="str-t">"Developer &amp; Systems Engineer"</span><span class="punc-t">,</span>`,
       ``,
       `  <span class="prop-t">education</span><span class="punc-t">: {</span>`,
-      `    <span class="prop-t">current</span><span class="punc-t">:</span>  <span class="str-t">"1st Year Software Engineering — ISSAT Sousse (2025–present)"</span><span class="punc-t">,</span>`,
-      `    <span class="prop-t">degree</span><span class="punc-t">:</span>   <span class="str-t">"BSc Software Engineering — ISIMM Monastir (2025)"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">current</span><span class="punc-t">:</span>  <span class="str-t">"Software Engineering Student — ISSAT Sousse (2025–present)"</span><span class="punc-t">,</span>`,
+      `    <span class="prop-t">degree</span><span class="punc-t">:</span>   <span class="str-t">"BSc Computer Science, specializing in Software Engineering — ISIMM Monastir (2025)"</span><span class="punc-t">,</span>`,
       `    <span class="prop-t">fyp</span><span class="punc-t">:</span>      <span class="str-t">"Excellent — SourceLang compiler project"</span><span class="punc-t">,</span>`,
       `    <span class="prop-t">cert</span><span class="punc-t">:</span>     <span class="str-t">"CCNA 1 — Networking fundamentals"</span><span class="punc-t">,</span>`,
       `    <span class="prop-t">bac</span><span class="punc-t">:</span>      <span class="str-t">"Bac Technologique — Ibn Khaldoun Jemmel"</span><span class="punc-t">,</span>`,
@@ -79,8 +51,6 @@ export const FILES: Record<FileKey, FileData> = {
       `<span class="kw2">export default</span> <span class="fn-t">about</span><span class="punc-t">;</span>`,
     ],
   },
-
-  // ── skills.ts ─────────────────────────────────────────────────────────────
   skills: {
     name: "skills.ts",
     lang: "TypeScript",
@@ -119,7 +89,6 @@ export const FILES: Record<FileKey, FileData> = {
     ],
   },
 
-  // ── experience.ts ─────────────────────────────────────────────────────────
   experience: {
     name: "experience.ts",
     lang: "TypeScript",
@@ -245,7 +214,7 @@ export const FILES: Record<FileKey, FileData> = {
   documents: {
     name: "documents.ts",
     lang: "TypeScript",
-    icon: "pdf",   // ← "pdf" déclenche le rendu DocumentsPanel dans CodeEditor
+    icon: "pdf",   
     lines: [
       `<span class="kw2">import</span> <span class="kw">type</span> <span class="punc-t">{</span> <span class="type-t">Document</span><span class="punc-t">,</span> <span class="type-t">DocStatus</span> <span class="punc-t">}</span> <span class="kw2">from</span> <span class="str-t">"./types"</span><span class="punc-t">;</span>`,
       ``,
